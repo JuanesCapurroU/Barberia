@@ -1,4 +1,6 @@
-package com.example.Barberia;
+package com.example.Barberia.services;
+
+import com.example.Barberia.models.HorarioDisponible;
 
 import java.util.List;
 

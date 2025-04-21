@@ -1,5 +1,7 @@
-package com.example.Barberia;
+package com.example.Barberia.controllers;
 
+import com.example.Barberia.models.HorarioDisponible;
+import com.example.Barberia.services.HorarioDisponibleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

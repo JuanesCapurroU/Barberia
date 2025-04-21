@@ -1,5 +1,7 @@
-package com.example.Barberia;
+package com.example.Barberia.controllers;
 
+import com.example.Barberia.models.Barbero;
+import com.example.Barberia.services.BarberoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

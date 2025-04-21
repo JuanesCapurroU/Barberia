@@ -1,5 +1,6 @@
-package com.example.Barberia;
+package com.example.Barberia.repositories;
 
+import com.example.Barberia.models.Barbero;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

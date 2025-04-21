@@ -1,5 +1,7 @@
-package com.example.Barberia;
+package com.example.Barberia.services;
 
+import com.example.Barberia.repositories.ServicioRepository;
+import com.example.Barberia.models.Servicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

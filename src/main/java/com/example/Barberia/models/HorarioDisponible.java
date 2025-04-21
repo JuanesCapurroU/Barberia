@@ -1,4 +1,4 @@
-package com.example.Barberia;
+package com.example.Barberia.models;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
