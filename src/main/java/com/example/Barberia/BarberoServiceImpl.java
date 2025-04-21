@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BarberoServicioImpl implements BarberoServicio {
+public class BarberoServiceImpl implements BarberoService {
 
     @Autowired
-    private BarberoRepositorio barberoRepositorio;
+    private BarberoRepository barberoRepositorio;
 
     @Override
     public Barbero guardarBarbero(Barbero barbero) {

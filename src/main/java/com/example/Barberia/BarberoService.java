@@ -2,7 +2,7 @@ package com.example.Barberia;
 
 import java.util.List;
 
-public interface BarberoServicio {
+public interface BarberoService {
     Barbero guardarBarbero(Barbero barbero);
     List<Barbero> listarBarberos();
     Barbero obtenerBarberoPorId(Long id);

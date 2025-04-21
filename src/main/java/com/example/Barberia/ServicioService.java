@@ -1,9 +1,8 @@
 package com.example.Barberia;
 
-import com.example.Barberia.Servicio;
 import java.util.List;
 
-public interface ServicioServicio {
+public interface ServicioService {
 
     Servicio guardarServicio(Servicio servicio);
     List<Servicio> listarServicios();

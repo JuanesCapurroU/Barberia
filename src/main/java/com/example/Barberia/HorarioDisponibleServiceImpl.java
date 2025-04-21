@@ -6,29 +6,29 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class HorarioDisponibleServicioImpl implements HorarioDisponibleServicio {
+public class HorarioDisponibleServiceImpl implements HorarioDisponibleService {
 
     @Autowired
-    private HorarioDisponibleRepositorio horarioDisponibleRepositorio;
+    private HorarioDisponibleRepository horarioDisponibleRepository;
 
     @Override
     public HorarioDisponible guardarHorarioDisponible(HorarioDisponible horarioDisponible) {
-        return horarioDisponibleRepositorio.save(horarioDisponible);
+        return horarioDisponibleRepository.save(horarioDisponible);
     }
 
     @Override
     public List<HorarioDisponible> listarHorariosDisponibles() {
-        return horarioDisponibleRepositorio.findAll();
+        return horarioDisponibleRepository.findAll();
     }
 
     @Override
     public HorarioDisponible obtenerHorarioDisponiblePorId(Long id) {
-        return horarioDisponibleRepositorio.findById(id)
+        return horarioDisponibleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Horario no encontrado con id: " + id));
     }
 
     @Override
     public void eliminarHorarioDisponible(Long id) {
-        horarioDisponibleRepositorio.deleteById(id);
+        horarioDisponibleRepository.deleteById(id);
     }
 }

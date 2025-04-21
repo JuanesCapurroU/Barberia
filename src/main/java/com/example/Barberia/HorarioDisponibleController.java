@@ -8,28 +8,28 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/horarios")
 @CrossOrigin(origins = "*")
-public class HorarioDisponibleControlador {
+public class HorarioDisponibleController {
 
     @Autowired
-    private HorarioDisponibleServicio horarioDisponibleServicio;
+    private HorarioDisponibleService horarioDisponibleService;
 
     @PostMapping
     public HorarioDisponible guardarHorarioDisponible(@RequestBody HorarioDisponible horarioDisponible) {
-        return horarioDisponibleServicio.guardarHorarioDisponible(horarioDisponible);
+        return horarioDisponibleService.guardarHorarioDisponible(horarioDisponible);
     }
 
     @GetMapping
     public List<HorarioDisponible> listarHorariosDisponibles() {
-        return horarioDisponibleServicio.listarHorariosDisponibles();
+        return horarioDisponibleService.listarHorariosDisponibles();
     }
 
     @GetMapping("/{id}")
     public HorarioDisponible obtenerHorarioDisponiblePorId(@PathVariable Long id) {
-        return horarioDisponibleServicio.obtenerHorarioDisponiblePorId(id);
+        return horarioDisponibleService.obtenerHorarioDisponiblePorId(id);
     }
 
     @DeleteMapping("/{id}")
     public void eliminarHorarioDisponible(@PathVariable Long id) {
-        horarioDisponibleServicio.eliminarHorarioDisponible(id);
+        horarioDisponibleService.eliminarHorarioDisponible(id);
     }
 }

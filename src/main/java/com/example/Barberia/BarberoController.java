@@ -8,28 +8,28 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/barberos")
 @CrossOrigin(origins = "*")
-public class BarberoControlador {
+public class BarberoController {
 
     @Autowired
-    private BarberoServicio barberoServicio;
+    private BarberoService barberoService;
 
     @PostMapping
     public Barbero guardarBarbero(@RequestBody Barbero barbero) {
-        return barberoServicio.guardarBarbero(barbero);
+        return barberoService.guardarBarbero(barbero);
     }
 
     @GetMapping
     public List<Barbero> listarBarberos() {
-        return barberoServicio.listarBarberos();
+        return barberoService.listarBarberos();
     }
 
     @GetMapping("/{id}")
     public Barbero obtenerBarberoPorId(@PathVariable Long id) {
-        return barberoServicio.obtenerBarberoPorId(id);
+        return barberoService.obtenerBarberoPorId(id);
     }
 
     @DeleteMapping("/{id}")
     public void eliminarBarbero(@PathVariable Long id) {
-        barberoServicio.eliminarBarbero(id);
+        barberoService.eliminarBarbero(id);
     }
 }
