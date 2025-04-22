@@ -19,18 +19,12 @@ public class ServicioServiceImpl implements ServicioService {
     }
 
     @Override
-    public List<Servicio> listarServicios() {
-        return servicioRepository.findAll();
-    }
-
-    @Override
-    public Servicio obtenerServicioPorId(Long id) {
-        return servicioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Servicio no encontrado con id: " + id));
-    }
-
-    @Override
     public void eliminarServicio(Long id) {
         servicioRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Servicio> listarServicios() {
+        return servicioRepository.findAll();
     }
 }

@@ -7,30 +7,25 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class BarberoServiceImpl implements BarberoService {
 
     @Autowired
-    private BarberoRepository barberoRepositorio;
+    private BarberoRepository barberoRepository;
 
     @Override
     public Barbero guardarBarbero(Barbero barbero) {
-        return barberoRepositorio.save(barbero);
-    }
-
-    @Override
-    public List<Barbero> listarBarberos() {
-        return barberoRepositorio.findAll();
-    }
-
-    @Override
-    public Barbero obtenerBarberoPorId(Long id) {
-        return barberoRepositorio.findById(id)
-                .orElseThrow(() -> new RuntimeException("Barbero no encontrado con id: " + id));
+        return barberoRepository.save(barbero);
     }
 
     @Override
     public void eliminarBarbero(Long id) {
-        barberoRepositorio.deleteById(id);
+        barberoRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Barbero> listarBarberos() {
+        return barberoRepository.findAll();
     }
 }

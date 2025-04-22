@@ -14,37 +14,26 @@ public class AdministradorController {
     @Autowired
     private AdministradorService administradorService;
 
+    // Crear nuevo administrador
+    @PostMapping
+    public Administrador crearAdministrador(@RequestBody Administrador administrador) {
+        return administradorService.guardarAdministrador(administrador);
+    }
+
+    // Listar todos los administradores
     @GetMapping
-    public List<Administrador> obtenerTodos() {
-        return administradorService.obtenerTodos();
+    public List<Administrador> listarAdministradores() {
+        return administradorService.listarAdministradores();
+    }
+
+    // Eliminar administrador por id
+    @DeleteMapping("/{id}")
+    public void eliminarAdministrador(@PathVariable Long id) {
+        administradorService.eliminarAdministrador(id);
     }
 
     @GetMapping("/{id}")
-    public Administrador obtenerPorId(@PathVariable Long id) {
-        return administradorService.obtenerPorId(id);
-    }
-
-    @PostMapping
-    public Administrador crearAdministrador(@RequestBody Administrador administrador) {
-        return administradorService.guardar(administrador);
-    }
-
-    @PutMapping("/{id}")
-    public Administrador actualizarAdministrador(@PathVariable Long id, @RequestBody Administrador administrador) {
-        Administrador existente = administradorService.obtenerPorId(id);
-        if (existente != null) {
-            existente.setNombre(administrador.getNombre());
-            existente.setUsuario(administrador.getUsuario());
-            existente.setContrasenia(administrador.getContrasenia());
-            existente.setCorreo(administrador.getCorreo());
-            return administradorService.guardar(existente);
-        } else {
-            return null;
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public void eliminarAdministrador(@PathVariable Long id) {
-        administradorService.eliminar(id);
+    public Administrador obtenerAdministrador(@PathVariable Long id) {
+        return administradorService.obtenerAdministradorPorId(id);
     }
 }

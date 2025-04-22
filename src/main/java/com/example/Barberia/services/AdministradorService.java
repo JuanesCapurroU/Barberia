@@ -4,8 +4,8 @@ import com.example.Barberia.models.Administrador;
 import java.util.List;
 
 public interface AdministradorService {
-    List<Administrador> obtenerTodos();
-    Administrador obtenerPorId(Long id);
-    Administrador guardar(Administrador administrador);
-    void eliminar(Long id);
+    Administrador guardarAdministrador(Administrador administrador);
+    void eliminarAdministrador(Long id);
+    List<Administrador> listarAdministradores();
+    Administrador obtenerAdministradorPorId(Long id); // <- Agregado
 }

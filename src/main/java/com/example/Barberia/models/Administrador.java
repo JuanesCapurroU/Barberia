@@ -10,20 +10,23 @@ public class Administrador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_admin;
+
     private String nombre;
     private String usuario;
     private String contrasenia;
     private String correo;
+    private String rol;
 
     public Administrador() {
     }
 
-    public Administrador(long id_admin, String nombre, String usuario, String contrasenia, String correo) {
+    public Administrador(long id_admin, String nombre, String usuario, String contrasenia, String correo, String rol) {
         this.id_admin = id_admin;
         this.nombre = nombre;
         this.usuario = usuario;
         this.contrasenia = contrasenia;
         this.correo = correo;
+        this.rol = rol;
     }
 
     public long getId_admin() {
@@ -66,6 +69,14 @@ public class Administrador {
         this.correo = correo;
     }
 
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
     @Override
     public String toString() {
         return "Administrador{" +
@@ -74,6 +85,7 @@ public class Administrador {
                 ", usuario='" + usuario + '\'' +
                 ", contrasenia='" + contrasenia + '\'' +
                 ", correo='" + correo + '\'' +
+                ", rol='" + rol + '\'' + //
                 '}';
     }
 }
