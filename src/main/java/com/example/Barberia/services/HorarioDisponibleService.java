@@ -5,8 +5,7 @@ import com.example.Barberia.models.HorarioDisponible;
 import java.util.List;
 
 public interface HorarioDisponibleService {
-    HorarioDisponible guardarHorarioDisponible(HorarioDisponible horarioDisponible);
-    List<HorarioDisponible> listarHorariosDisponibles();
-    HorarioDisponible obtenerHorarioDisponiblePorId(Long id);
+    HorarioDisponible guardarHorarioDisponible(HorarioDisponible horario);
     void eliminarHorarioDisponible(Long id);
+    List<HorarioDisponible> listarHorarios();
 }

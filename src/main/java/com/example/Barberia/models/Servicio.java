@@ -38,4 +38,26 @@ public class Servicio {
     public void setNombreServicio(String nombreServicio) {
         this.nombreServicio = nombreServicio;
     }
+
+
+    public Servicio() {
+    }
+
+    public Servicio(Long idServicio, String nombreServicio, String descripcion) {
+        this.idServicio = idServicio;
+        this.nombreServicio = nombreServicio;
+        this.descripcion = descripcion;
+    }
+
+    @Override
+    public String toString() {
+        return "Servicio{" +
+                "idServicio=" + idServicio +
+                ", nombreServicio='" + nombreServicio + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
+    }
 }
+
+
+

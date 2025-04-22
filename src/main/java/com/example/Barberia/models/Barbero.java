@@ -17,4 +17,66 @@ public class Barbero {
     private String correo;
 
     private String telefono;
+
+    public Barbero() {
+    }
+
+    public Barbero(Long idBarbero, String nombre, String estado, String correo, String telefono) {
+        this.idBarbero = idBarbero;
+        this.nombre = nombre;
+        this.estado = estado;
+        this.correo = correo;
+        this.telefono = telefono;
+    }
+
+    public Long getIdBarbero() {
+        return idBarbero;
+    }
+
+    public void setIdBarbero(Long idBarbero) {
+        this.idBarbero = idBarbero;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    @Override
+    public String toString() {
+        return "Barbero{" +
+                "idBarbero=" + idBarbero +
+                ", nombre='" + nombre + '\'' +
+                ", estado='" + estado + '\'' +
+                ", correo='" + correo + '\'' +
+                ", telefono='" + telefono + '\'' +
+                '}';
+    }
 }

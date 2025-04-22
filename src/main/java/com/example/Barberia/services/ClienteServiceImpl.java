@@ -12,25 +12,20 @@ import java.util.List;
 public class ClienteServiceImpl implements ClienteService {
 
     @Autowired
-    private ClienteRepository repositorio;
+    private ClienteRepository clienteRepository;
 
     @Override
-    public List<Cliente> obtenerTodos() {
-        return repositorio.findAll();
+    public Cliente guardarCliente(Cliente cliente) {
+        return clienteRepository.save(cliente);
     }
 
     @Override
-    public Cliente obtenerPorId(Long id) {
-        return repositorio.findById(id).orElse(null);
+    public void eliminarCliente(Long id) {
+        clienteRepository.deleteById(id);
     }
 
     @Override
-    public Cliente guardar(Cliente cliente) {
-        return repositorio.save(cliente);
-    }
-
-    @Override
-    public void eliminar(Long id) {
-        repositorio.deleteById(id);
+    public List<Cliente> listarClientes() {
+        return clienteRepository.findAll();
     }
 }

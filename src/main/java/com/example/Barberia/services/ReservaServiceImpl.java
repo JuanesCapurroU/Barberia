@@ -10,26 +10,20 @@ import java.util.List;
 public class ReservaServiceImpl implements ReservaService {
 
     @Autowired
-    private ReservaRepository reservaRepositorio;
+    private ReservaRepository reservaRepository;
 
     @Override
     public Reserva guardarReserva(Reserva reserva) {
-        return reservaRepositorio.save(reserva);
-    }
-
-    @Override
-    public List<Reserva> listarReservas() {
-        return reservaRepositorio.findAll();
-    }
-
-    @Override
-    public Reserva obtenerReservaPorId(Long id) {
-        return reservaRepositorio.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reserva no encontrada con id: " + id));
+        return reservaRepository.save(reserva);
     }
 
     @Override
     public void eliminarReserva(Long id) {
-        reservaRepositorio.deleteById(id);
+        reservaRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Reserva> listarReservas() {
+        return reservaRepository.findAll();
     }
 }

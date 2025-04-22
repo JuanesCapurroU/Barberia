@@ -14,23 +14,17 @@ public class HorarioDisponibleServiceImpl implements HorarioDisponibleService {
     private HorarioDisponibleRepository horarioDisponibleRepository;
 
     @Override
-    public HorarioDisponible guardarHorarioDisponible(HorarioDisponible horarioDisponible) {
-        return horarioDisponibleRepository.save(horarioDisponible);
-    }
-
-    @Override
-    public List<HorarioDisponible> listarHorariosDisponibles() {
-        return horarioDisponibleRepository.findAll();
-    }
-
-    @Override
-    public HorarioDisponible obtenerHorarioDisponiblePorId(Long id) {
-        return horarioDisponibleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Horario no encontrado con id: " + id));
+    public HorarioDisponible guardarHorarioDisponible(HorarioDisponible horario) {
+        return horarioDisponibleRepository.save(horario);
     }
 
     @Override
     public void eliminarHorarioDisponible(Long id) {
         horarioDisponibleRepository.deleteById(id);
+    }
+
+    @Override
+    public List<HorarioDisponible> listarHorarios() {
+        return horarioDisponibleRepository.findAll();
     }
 }

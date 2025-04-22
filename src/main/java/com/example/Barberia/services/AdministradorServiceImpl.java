@@ -1,4 +1,4 @@
-package com.example.Barberia.services.impl;
+package com.example.Barberia.services;
 
 import com.example.Barberia.models.Administrador;
 import com.example.Barberia.repositories.AdministradorRepository;
@@ -8,29 +8,31 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class AdministradorServiceImpl implements AdministradorService {
 
     @Autowired
-    private AdministradorRepository repositorio;
+    private AdministradorRepository administradorRepository;
 
     @Override
-    public List<Administrador> obtenerTodos() {
-        return repositorio.findAll();
+    public Administrador guardarAdministrador(Administrador administrador) {
+        return administradorRepository.save(administrador);
     }
 
     @Override
-    public Administrador obtenerPorId(Long id) {
-        return repositorio.findById(id).orElse(null);
+    public void eliminarAdministrador(Long id) {
+        administradorRepository.deleteById(id);
     }
 
     @Override
-    public Administrador guardar(Administrador administrador) {
-        return repositorio.save(administrador);
+    public List<Administrador> listarAdministradores() {
+        return administradorRepository.findAll();
     }
 
     @Override
-    public void eliminar(Long id) {
-        repositorio.deleteById(id);
+    public Administrador obtenerAdministradorPorId(Long id) {
+        return administradorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Administrador no encontrado con id: " + id));
     }
 }
