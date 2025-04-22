@@ -21,6 +21,10 @@ public class Reserva {
     @JoinColumn(name = "id_horario", nullable = false)
     private HorarioDisponible horarioDisponible;
 
+    @ManyToOne
+    @JoinColumn(name = "id_cliente", nullable = false)
+    private Cliente cliente;
+
     private String nombreCliente;
 
     private String celularCliente;
