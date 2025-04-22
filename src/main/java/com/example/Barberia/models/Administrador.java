@@ -13,18 +13,18 @@ public class Administrador {
 
     private String nombre;
     private String usuario;
-    private String contrasenia;
+    private String contraseña;
     private String correo;
     private String rol;
 
     public Administrador() {
     }
 
-    public Administrador(long id_admin, String nombre, String usuario, String contrasenia, String correo, String rol) {
+    public Administrador(long id_admin, String nombre, String usuario, String contraseña, String correo, String rol) {
         this.id_admin = id_admin;
         this.nombre = nombre;
         this.usuario = usuario;
-        this.contrasenia = contrasenia;
+        this.contraseña = contraseña;
         this.correo = correo;
         this.rol = rol;
     }
@@ -53,12 +53,12 @@ public class Administrador {
         this.usuario = usuario;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getContraseña() {
+        return contraseña;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 
     public String getCorreo() {
@@ -83,7 +83,7 @@ public class Administrador {
                 "id_admin=" + id_admin +
                 ", nombre='" + nombre + '\'' +
                 ", usuario='" + usuario + '\'' +
-                ", contrasenia='" + contrasenia + '\'' +
+                ", contraseña='" + contraseña + '\'' +
                 ", correo='" + correo + '\'' +
                 ", rol='" + rol + '\'' + //
                 '}';
