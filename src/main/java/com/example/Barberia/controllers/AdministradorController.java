@@ -14,19 +14,19 @@ public class AdministradorController {
     @Autowired
     private AdministradorService administradorService;
 
-    // Crear nuevo administrador
+
     @PostMapping
     public Administrador crearAdministrador(@RequestBody Administrador administrador) {
         return administradorService.guardarAdministrador(administrador);
     }
 
-    // Listar todos los administradores
+
     @GetMapping
     public List<Administrador> listarAdministradores() {
         return administradorService.listarAdministradores();
     }
 
-    // Eliminar administrador por id
+
     @DeleteMapping("/{id}")
     public void eliminarAdministrador(@PathVariable Long id) {
         administradorService.eliminarAdministrador(id);
