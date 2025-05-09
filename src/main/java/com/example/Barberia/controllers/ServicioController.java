@@ -39,4 +39,15 @@ public class ServicioController {
         validarAdministrador(idAdministrador);
         servicioService.eliminarServicio(id);
     }
+
+    @GetMapping
+    public List<Servicio> obtenerServicios() {
+        return servicioService.obtenerTodosLosServicios();
+    }
+
+    @GetMapping("/{id}")
+    public Servicio obtenerServicioPorId(@PathVariable Long id) {
+        return servicioService.obtenerServicioPorId(id);
+    }
+
 }
