@@ -9,7 +9,7 @@ public class BarberiaApplication {
 
 	public static void main(String[] args) {
 
-		loadEnv();
+
 		SpringApplication.run(BarberiaApplication.class, args);
 	}
 	private static void loadEnv(){

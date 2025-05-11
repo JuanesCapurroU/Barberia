@@ -14,7 +14,7 @@ public class Reserva {
     private Servicio servicio;
 
     @ManyToOne
-    @JoinColumn(name = "id_barbero", nullable = false)
+    @JoinColumn(name = "idBarbero")
     private Barbero barbero;
 
     @ManyToOne

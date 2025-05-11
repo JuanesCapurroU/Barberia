@@ -34,8 +34,8 @@ public class HorarioDisponibleController {
     }
 
     @GetMapping
-    public List<HorarioDisponible> obtenerHorariosPorBarbero(@RequestParam Long barberoId) {
-        return horarioDisponibleService.obtenerPorBarberoId(barberoId);
+    public List<HorarioDisponible> obtenerHorariosPorBarbero(@RequestParam Long idbarbero) {
+        return horarioDisponibleService.obtenerPorBarberoId(idbarbero);
     }
 
 
@@ -54,13 +54,13 @@ public class HorarioDisponibleController {
 
     @GetMapping("/disponibles")
     public List<LocalTime> obtenerHorariosDisponibles(
-            @RequestParam Long barberoId,
+            @RequestParam Long idbarbero,
             @RequestParam String fecha // formato "yyyy-MM-dd"
     ) {
         // 1. Genera todos los slots posibles (ej: 9:00 a 18:00 cada 30 min)
         LocalTime inicio = LocalTime.of(9, 0);
         LocalTime fin = LocalTime.of(18, 0);
-        int intervaloMin = 30;
+        int intervaloMin = 60;
         List<LocalTime> todosLosSlots = new ArrayList<>();
         LocalTime hora = inicio;
         while (!hora.isAfter(fin.minusMinutes(intervaloMin))) {
@@ -70,7 +70,7 @@ public class HorarioDisponibleController {
 
         // 2. Consulta las reservas existentes para ese barbero y día
         LocalDate fechaConsulta = LocalDate.parse(fecha);
-        List<HorarioDisponible> reservados = horarioDisponibleService.obtenerPorBarberoYFecha(barberoId, fechaConsulta);
+        List<HorarioDisponible> reservados = horarioDisponibleService.obtenerPorBarberoYFecha(idbarbero, fechaConsulta);
 
         // 3. Filtra los slots ocupados
         Set<LocalTime> ocupados = reservados.stream()

@@ -12,7 +12,7 @@ public class HorarioDisponible {
     private Long idHorario;
 
     @ManyToOne
-    @JoinColumn(name = "id_barbero", nullable = false)
+    @JoinColumn(name = "idBarbero", nullable = false)
     private Barbero barbero;
 
     private LocalDate fecha;

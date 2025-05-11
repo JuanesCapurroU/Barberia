@@ -29,7 +29,10 @@ public class ReservaController {
     }
 
     @PostMapping
-    public Reserva guardarReserva(@RequestBody Reserva reserva, @RequestParam Long idAdministrador) {
+    public Reserva guardarReserva(
+            @RequestBody Reserva reserva,
+            @RequestParam Long idAdministrador // <-- Parámetro de consulta
+    ) {
         validarAdministrador(idAdministrador);
         return reservaService.guardarReserva(reserva);
     }

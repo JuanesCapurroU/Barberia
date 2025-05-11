@@ -10,24 +10,26 @@ public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_cliente;
+    private Long id_cliente;
+
     private String nombre;
     private String celular;
+    private String correo;
 
-    public Cliente() {
-    }
+    public Cliente() {}
 
-    public Cliente(long id_cliente, String nombre, String celular) {
+    public Cliente(Long id_cliente, String nombre, String celular, String correo) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.celular = celular;
+        this.correo = correo;
     }
 
-    public long getId_cliente() {
+    public Long getId_cliente() {
         return id_cliente;
     }
 
-    public void setId_cliente(long id_cliente) {
+    public void setId_cliente(Long id_cliente) {
         this.id_cliente = id_cliente;
     }
 
@@ -47,13 +49,22 @@ public class Cliente {
         this.celular = celular;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+
     @Override
     public String toString() {
         return "Cliente{" +
                 "id_cliente=" + id_cliente +
                 ", nombre='" + nombre + '\'' +
                 ", celular='" + celular + '\'' +
+                ", correo='" + correo + '\'' +
                 '}';
     }
-
 }
