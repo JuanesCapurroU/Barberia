@@ -38,8 +38,6 @@ public class HorarioDisponibleController {
         return horarioDisponibleService.obtenerPorBarberoId(idbarbero);
     }
 
-
-
     @PostMapping
     public HorarioDisponible guardarHorario(@RequestBody HorarioDisponible horario, @RequestParam Long idAdministrador) {
         validarAdministrador(idAdministrador);
@@ -57,32 +55,19 @@ public class HorarioDisponibleController {
             @RequestParam Long idbarbero,
             @RequestParam String fecha // formato "yyyy-MM-dd"
     ) {
+        LocalDate fechaConsulta = LocalDate.parse(fecha);
 
-        LocalTime inicio = LocalTime.of(9, 0);
-        LocalTime fin = LocalTime.of(18, 0);
-        int intervaloMin = 60;
-        List<LocalTime> todosLosSlots = new ArrayList<>();
-        LocalTime hora = inicio;
-        while (!hora.isAfter(fin.minusMinutes(intervaloMin))) {
-            todosLosSlots.add(hora);
-            hora = hora.plusMinutes(intervaloMin);
+        // Crea los horarios si no existen
+        if (horarioDisponibleService.obtenerPorBarberoYFecha(idbarbero, fechaConsulta).isEmpty()) {
+            horarioDisponibleService.crearHorariosParaDiaYBarbero(idbarbero, fechaConsulta);
         }
 
+        List<HorarioDisponible> horarios = horarioDisponibleService.obtenerPorBarberoYFecha(idbarbero, fechaConsulta);
 
-        LocalDate fechaConsulta = LocalDate.parse(fecha);
-        List<HorarioDisponible> reservados = horarioDisponibleService.obtenerPorBarberoYFecha(idbarbero, fechaConsulta);
-
-
-        Set<LocalTime> ocupados = reservados.stream()
-                .filter(h -> !h.isDisponible()) // solo los ocupados
+        // Solo devuelve los horarios que están disponibles
+        return horarios.stream()
+                .filter(HorarioDisponible::isDisponible)
                 .map(HorarioDisponible::getHoraInicio)
-                .collect(Collectors.toSet());
-
-        List<LocalTime> libres = todosLosSlots.stream()
-                .filter(slot -> !ocupados.contains(slot))
                 .collect(Collectors.toList());
-
-        return libres;
     }
-
 }
