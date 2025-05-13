@@ -24,12 +24,30 @@ public class Barbero {
     public Barbero() {
     }
 
-    public Barbero(Long idBarbero, String nombre, String estado, String correo, String telefono) {
+    public Barbero(Long idBarbero, String nombre, String estado, String correo, String telefono, String usuario, String contraseña) {
         this.idBarbero = idBarbero;
         this.nombre = nombre;
         this.estado = estado;
         this.correo = correo;
         this.telefono = telefono;
+        this.usuario = usuario;
+        this.contraseña = contraseña;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 
     public Long getIdBarbero() {

@@ -40,5 +40,14 @@ public class ReservaServiceImpl implements ReservaService {
     public List<Reserva> listarReservas() {
         return reservaRepository.findAll();
     }
+<<<<<<< HEAD
 }
 
+=======
+
+    @Override
+    public List<Reserva> listarReservasPorBarbero(Long idBarbero) {
+        return reservaRepository.findByBarbero_IdBarbero(idBarbero);
+    }
+}
+>>>>>>> 1185a83cec9bb936ded1839a6688f8dd1b891b3c

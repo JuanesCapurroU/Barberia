@@ -7,4 +7,5 @@ public interface ReservaService {
     Reserva guardarReserva(Reserva reserva);
     void eliminarReserva(Long id);
     List<Reserva> listarReservas();
+    List<Reserva> listarReservasPorBarbero(Long idBarbero);
 }
