@@ -8,7 +8,5 @@ public interface BarberoService {
 
     Barbero guardarBarbero(Barbero barbero);
     void eliminarBarbero(Long id);
-
-    // Método para listar todos los barberos
     List<Barbero> listarBarberos();
 }

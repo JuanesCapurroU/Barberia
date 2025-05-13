@@ -22,10 +22,11 @@ public class ClienteController {
 
     private void validarAdministrador(Long idAdministrador) {
         Administrador admin = administradorService.obtenerAdministradorPorId(idAdministrador);
-        if (admin == null || !"ADMIN".equals(admin.getRol())) {
+        if (admin == null || !"ADMIN".equalsIgnoreCase(admin.getRol())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No tienes permisos para realizar esta acción.");
         }
     }
+
 
     @PostMapping
     public Cliente guardarCliente(@RequestBody Cliente cliente, @RequestParam Long idAdministrador) {

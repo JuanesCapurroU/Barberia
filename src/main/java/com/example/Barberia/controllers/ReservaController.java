@@ -23,7 +23,7 @@ public class ReservaController {
 
     private void validarAdministrador(Long idAdministrador) {
         Administrador admin = administradorService.obtenerAdministradorPorId(idAdministrador);
-        if (admin == null || !"ADMIN".equals(admin.getRol())) {
+        if (admin == null || !"ADMIN".equalsIgnoreCase(admin.getRol())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No tienes permisos para realizar esta acción.");
         }
     }
@@ -31,7 +31,7 @@ public class ReservaController {
     @PostMapping
     public Reserva guardarReserva(
             @RequestBody Reserva reserva,
-            @RequestParam Long idAdministrador // <-- Parámetro de consulta
+            @RequestParam Long idAdministrador
     ) {
         validarAdministrador(idAdministrador);
         return reservaService.guardarReserva(reserva);

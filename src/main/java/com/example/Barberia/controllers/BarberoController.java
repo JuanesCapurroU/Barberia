@@ -16,8 +16,10 @@ public class BarberoController {
 
     @PostMapping
     public Barbero guardarBarbero(@RequestBody Barbero barbero, @RequestParam Long idAdministrador) {
+        System.out.println("Barbero recibido: " + barbero);
         return barberoServiceImpl.guardarBarbero(barbero);
     }
+
 
     @DeleteMapping("/{id}")
     public void eliminarBarbero(@PathVariable Long id, @RequestParam Long idAdministrador) {

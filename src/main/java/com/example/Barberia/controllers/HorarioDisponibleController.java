@@ -28,7 +28,7 @@ public class HorarioDisponibleController {
 
     private void validarAdministrador(Long idAdministrador) {
         Administrador admin = administradorService.obtenerAdministradorPorId(idAdministrador);
-        if (admin == null || !"ADMIN".equals(admin.getRol())) {
+        if (admin == null || !"ADMIN".equalsIgnoreCase(admin.getRol())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No tienes permisos para realizar esta acción.");
         }
     }
@@ -57,7 +57,7 @@ public class HorarioDisponibleController {
             @RequestParam Long idbarbero,
             @RequestParam String fecha // formato "yyyy-MM-dd"
     ) {
-        // 1. Genera todos los slots posibles (ej: 9:00 a 18:00 cada 30 min)
+
         LocalTime inicio = LocalTime.of(9, 0);
         LocalTime fin = LocalTime.of(18, 0);
         int intervaloMin = 60;
@@ -68,11 +68,11 @@ public class HorarioDisponibleController {
             hora = hora.plusMinutes(intervaloMin);
         }
 
-        // 2. Consulta las reservas existentes para ese barbero y día
+
         LocalDate fechaConsulta = LocalDate.parse(fecha);
         List<HorarioDisponible> reservados = horarioDisponibleService.obtenerPorBarberoYFecha(idbarbero, fechaConsulta);
 
-        // 3. Filtra los slots ocupados
+
         Set<LocalTime> ocupados = reservados.stream()
                 .filter(h -> !h.isDisponible()) // solo los ocupados
                 .map(HorarioDisponible::getHoraInicio)
