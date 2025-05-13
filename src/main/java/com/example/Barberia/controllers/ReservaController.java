@@ -42,4 +42,9 @@ public class ReservaController {
         validarAdministrador(idAdministrador);
         reservaService.eliminarReserva(id);
     }
+    @GetMapping("/barbero/{idBarbero}")
+    public List<Reserva> listarReservasPorBarbero(@PathVariable Long idBarbero) {
+        return reservaService.listarReservasPorBarbero(idBarbero);
+    }
+
 }
