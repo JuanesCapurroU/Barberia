@@ -18,6 +18,9 @@ public class Barbero {
 
     private String telefono;
 
+    private String usuario;
+    private String contraseña;
+
     public Barbero() {
     }
 
