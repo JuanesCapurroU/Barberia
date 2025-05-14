@@ -45,7 +45,7 @@ public class HorarioDisponibleServiceImpl implements HorarioDisponibleService {
         return horarioDisponibleRepository.findByBarbero_IdBarberoAndFecha(idBarbero, fecha);
     }
 
-    // Nuevo método: crear todos los horarios posibles para un día/barbero
+
     @Override
     public void crearHorariosParaDiaYBarbero(Long idBarbero, LocalDate fecha) {
         Barbero barbero = barberoRepository.findById(idBarbero)

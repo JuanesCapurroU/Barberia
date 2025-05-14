@@ -15,4 +15,5 @@ public interface HorarioDisponibleRepository extends JpaRepository<HorarioDispon
     List<HorarioDisponible> findByBarbero_IdBarbero(Long idBarbero);
     List<HorarioDisponible> findByBarbero_IdBarberoAndFecha(Long idBarbero, LocalDate fecha);
     boolean existsByBarberoAndFechaAndHoraInicio(Barbero barbero, LocalDate fecha, LocalTime horaInicio);
+    List<HorarioDisponible> findByBarbero_IdBarberoAndFechaAndDisponibleTrue(Long idBarbero, LocalDate fecha);
 }

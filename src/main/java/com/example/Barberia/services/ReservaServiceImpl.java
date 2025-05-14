@@ -33,8 +33,14 @@ public class ReservaServiceImpl implements ReservaService {
 
     @Override
     public void eliminarReserva(Long id) {
+        Reserva reserva = reservaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+        HorarioDisponible horario = reserva.getHorarioDisponible();
+        horario.setDisponible(true);
+        horarioDisponibleRepository.save(horario);
         reservaRepository.deleteById(id);
     }
+
 
     @Override
     public List<Reserva> listarReservas() {
