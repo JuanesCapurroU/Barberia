@@ -21,10 +21,20 @@ public class Barbero {
     private String usuario;
     private String contraseña;
 
+    private String fotoUrl;
+
     public Barbero() {
     }
 
-    public Barbero(Long idBarbero, String nombre, String estado, String correo, String telefono, String usuario, String contraseña) {
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
+    }
+
+    public Barbero(Long idBarbero, String nombre, String estado, String correo, String telefono, String usuario, String contraseña, String fotoUrl) {
         this.idBarbero = idBarbero;
         this.nombre = nombre;
         this.estado = estado;
@@ -32,6 +42,7 @@ public class Barbero {
         this.telefono = telefono;
         this.usuario = usuario;
         this.contraseña = contraseña;
+        this.fotoUrl = fotoUrl;
     }
 
     public String getUsuario() {

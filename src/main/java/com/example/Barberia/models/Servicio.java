@@ -13,7 +13,15 @@ public class Servicio {
     private String nombreServicio;
 
     private String descripcion;
+    private String fotoUrl;
 
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
+    }
 
     public Long getIdServicio() {
         return idServicio;
@@ -43,10 +51,11 @@ public class Servicio {
     public Servicio() {
     }
 
-    public Servicio(Long idServicio, String nombreServicio, String descripcion) {
+    public Servicio(Long idServicio, String nombreServicio, String descripcion, String fotoUrl) {
         this.idServicio = idServicio;
         this.nombreServicio = nombreServicio;
         this.descripcion = descripcion;
+        this.fotoUrl = fotoUrl;
     }
 
     @Override
