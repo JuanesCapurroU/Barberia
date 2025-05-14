@@ -9,7 +9,9 @@ import com.example.Barberia.repositories.ReservaRepository;
 import com.example.Barberia.repositories.HorarioDisponibleRepository;
 import com.example.Barberia.repositories.ServicioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -54,10 +56,12 @@ public class ReservaServiceImpl implements ReservaService {
     @Override
     public void eliminarReserva(Long id) {
         Reserva reserva = reservaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva no encontrada"));
         HorarioDisponible horario = reserva.getHorarioDisponible();
-        horario.setDisponible(true);
-        horarioDisponibleRepository.save(horario);
+        if (horario != null) {
+            horario.setDisponible(true);
+            horarioDisponibleRepository.save(horario);
+        }
         reservaRepository.deleteById(id);
     }
 
