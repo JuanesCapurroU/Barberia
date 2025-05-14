@@ -46,5 +46,9 @@ public class ReservaController {
     public List<Reserva> listarReservasPorBarbero(@PathVariable Long idBarbero) {
         return reservaService.listarReservasPorBarbero(idBarbero);
     }
+    @GetMapping
+    public List<Reserva> listarReservas() {
+        return reservaService.listarReservas();
+    }
 
 }
