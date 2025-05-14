@@ -1,7 +1,9 @@
 package com.example.Barberia.controllers;
 
+import com.example.Barberia.dto.HorarioDisponibleDto;
 import com.example.Barberia.models.Administrador;
 import com.example.Barberia.models.HorarioDisponible;
+import com.example.Barberia.repositories.HorarioDisponibleRepository;
 import com.example.Barberia.services.AdministradorService;
 import com.example.Barberia.services.HorarioDisponibleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -22,6 +21,9 @@ public class HorarioDisponibleController {
 
     @Autowired
     private HorarioDisponibleService horarioDisponibleService;
+
+    @Autowired
+    private HorarioDisponibleRepository horarioDisponibleRepository;
 
     @Autowired
     private AdministradorService administradorService;
@@ -51,23 +53,17 @@ public class HorarioDisponibleController {
     }
 
     @GetMapping("/disponibles")
-    public List<LocalTime> obtenerHorariosDisponibles(
+    public List<HorarioDisponibleDto> obtenerHorariosDisponibles(
             @RequestParam Long idbarbero,
             @RequestParam String fecha // formato "yyyy-MM-dd"
     ) {
         LocalDate fechaConsulta = LocalDate.parse(fecha);
 
-        // Crea los horarios si no existen
-        if (horarioDisponibleService.obtenerPorBarberoYFecha(idbarbero, fechaConsulta).isEmpty()) {
-            horarioDisponibleService.crearHorariosParaDiaYBarbero(idbarbero, fechaConsulta);
-        }
+        List<HorarioDisponible> horarios = horarioDisponibleRepository
+                .findByBarbero_IdBarberoAndFechaAndDisponibleTrue(idbarbero, fechaConsulta);
 
-        List<HorarioDisponible> horarios = horarioDisponibleService.obtenerPorBarberoYFecha(idbarbero, fechaConsulta);
-
-        // Solo devuelve los horarios que están disponibles
         return horarios.stream()
-                .filter(HorarioDisponible::isDisponible)
-                .map(HorarioDisponible::getHoraInicio)
+                .map(h -> new HorarioDisponibleDto(h.getIdHorario(), h.getHoraInicio().toString()))
                 .collect(Collectors.toList());
     }
 }
