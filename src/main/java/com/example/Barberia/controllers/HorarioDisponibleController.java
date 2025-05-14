@@ -35,9 +35,16 @@ public class HorarioDisponibleController {
         }
     }
 
-    @GetMapping
+    // GET /horarios/barbero?idbarbero=123
+    @GetMapping("/barbero")
     public List<HorarioDisponible> obtenerHorariosPorBarbero(@RequestParam Long idbarbero) {
         return horarioDisponibleService.obtenerPorBarberoId(idbarbero);
+    }
+
+    // GET /horarios
+    @GetMapping
+    public List<HorarioDisponible> listarTodosLosHorarios() {
+        return horarioDisponibleRepository.findAll();
     }
 
     @PostMapping
@@ -52,6 +59,7 @@ public class HorarioDisponibleController {
         horarioDisponibleService.eliminarHorarioDisponible(id);
     }
 
+    // GET /horarios/disponibles?idbarbero=123&fecha=2024-05-15
     @GetMapping("/disponibles")
     public List<HorarioDisponibleDto> obtenerHorariosDisponibles(
             @RequestParam Long idbarbero,
@@ -67,3 +75,4 @@ public class HorarioDisponibleController {
                 .collect(Collectors.toList());
     }
 }
+
