@@ -35,12 +35,19 @@ public class BarberoController {
 
 
     @DeleteMapping("/{id}")
-    public void eliminarBarbero(@PathVariable Long id, @RequestParam Long idAdministrador) {
+    public void eliminarBarbero(
+            @PathVariable Long id,
+            @RequestParam Long idAdministrador
+    ) {
+        // opcional: validar rol de administrador
         barberoServiceImpl.eliminarBarbero(id);
     }
+
 
     @GetMapping
     public List<Barbero> obtenerTodosLosBarberos() {
         return barberoServiceImpl.listarBarberos();
     }
+
+
 }
