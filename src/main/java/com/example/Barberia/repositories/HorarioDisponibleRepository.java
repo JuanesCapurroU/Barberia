@@ -24,4 +24,10 @@ public interface HorarioDisponibleRepository extends JpaRepository<HorarioDispon
     @Transactional
     @Modifying
     void deleteByBarbero_IdBarbero(Long idBarbero);
+
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query("DELETE FROM HorarioDisponible h WHERE h.barbero.idBarbero = :idBarbero")
+    void deleteByBarberoId(@Param("idBarbero") Long idBarbero);
+
 }

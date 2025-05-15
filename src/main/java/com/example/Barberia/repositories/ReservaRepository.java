@@ -15,12 +15,14 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     List<Reserva> findByBarbero_IdBarbero(Long idBarbero);
 
     // Borra todas las reservas asociadas a un barbero
+    @Modifying(clearAutomatically = true)
     @Transactional
-    @Modifying
     void deleteByBarbero_IdBarbero(Long idBarbero);
 
     @Transactional
     @Modifying
     @Query("DELETE FROM Reserva r WHERE r.horarioDisponible.barbero.idBarbero = :idBarbero")
     void deleteByHorarioBarberoIdBarbero(@Param("idBarbero") Long idBarbero);
+
+
 }
