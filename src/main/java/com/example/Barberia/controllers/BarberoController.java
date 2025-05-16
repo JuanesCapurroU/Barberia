@@ -25,7 +25,7 @@ public class BarberoController {
         Barbero nuevoBarbero = barberoServiceImpl.guardarBarbero(barbero);
 
         // Crea horarios para los próximos 7 días (ajusta según lo que quieras)
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 7; i++) {
             LocalDate fecha = LocalDate.now().plusDays(i);
             horarioDisponibleService.crearHorariosParaDiaYBarbero(nuevoBarbero.getIdBarbero(), fecha);
         }
