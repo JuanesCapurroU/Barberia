@@ -17,6 +17,7 @@ public class Barbero {
     private Administrador administrador;
 
 
+
     private String estado; // Ejemplo: Activo o Inactivo
 
     private String correo;

@@ -30,9 +30,9 @@ public class AdministradorServiceImpl implements AdministradorService {
         return administradorRepository.findAll();
     }
 
-    @Override
     public Administrador obtenerAdministradorPorId(Long id) {
         return administradorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Administrador no encontrado con id: " + id));
+                .orElseThrow(() -> new RuntimeException("Administrador no encontrado"));
     }
+
 }
