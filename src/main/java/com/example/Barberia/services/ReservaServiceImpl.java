@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -136,9 +137,27 @@ public class ReservaServiceImpl implements ReservaService {
         );
     }
 
+    @Override
+    public Reserva obtenerReservaPorId(Long id) {
+        return reservaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva no encontrada"));
+    }
 
+    @Override
+    public Reserva actualizarEstadoReserva(Long id, String estado) {
+        Reserva reserva = obtenerReservaPorId(id);
+        reserva.setEstado(estado);
+        return reservaRepository.save(reserva);
+    }
 
+    @Override
+    public List<Reserva> buscarPorBarberoFechaYEstado(Long idBarbero, LocalDate fecha, String estado) {
+        return reservaRepository.findByBarbero_IdBarberoAndHorarioDisponible_FechaAndEstado(idBarbero, fecha, estado);
+    }
 
-
+    @Override
+    public List<Reserva> buscarPorBarberoYFecha(Long idBarbero, LocalDate fecha) {
+        return reservaRepository.findByBarbero_IdBarberoAndHorarioDisponible_Fecha(idBarbero, fecha);
+    }
 }
 

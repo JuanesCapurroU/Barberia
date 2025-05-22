@@ -31,11 +31,14 @@ public class Reserva {
 
     private String correoCliente;
 
+    private String estado;
+
+
 
     public Reserva() {
     }
 
-    public Reserva(Long idReserva, Servicio servicio, Barbero barbero, HorarioDisponible horarioDisponible, Cliente cliente, String nombreCliente, String celularCliente, String correoCliente) {
+    public Reserva(Long idReserva, Servicio servicio, Barbero barbero, HorarioDisponible horarioDisponible, Cliente cliente, String nombreCliente, String celularCliente, String correoCliente, String estado) {
         this.idReserva = idReserva;
         this.servicio = servicio;
         this.barbero = barbero;
@@ -44,6 +47,15 @@ public class Reserva {
         this.nombreCliente = nombreCliente;
         this.celularCliente = celularCliente;
         this.correoCliente = correoCliente;
+        this.estado = estado;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Long getIdReserva() {
