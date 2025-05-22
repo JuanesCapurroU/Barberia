@@ -75,6 +75,24 @@ public class ReservaController {
             return reservaService.buscarPorBarberoYFecha(idBarbero, localDate);
         }
     }
+    // Método 1: Total diario (sin estado)
+    @GetMapping("/barbero/{idBarbero}/total")
+    public Double obtenerTotalDiario(
+            @PathVariable Long idBarbero,
+            @RequestParam String fecha
+    ) {
+        return reservaService.calcularTotalDiario(idBarbero, LocalDate.parse(fecha));
+    }
+
+    // Método 2: Total diario por estado
+    @GetMapping("/barbero/{idBarbero}/total/por-estado")
+    public Double obtenerTotalDiarioPorEstado(
+            @PathVariable Long idBarbero,
+            @RequestParam String fecha,
+            @RequestParam String estado
+    ) {
+        return reservaService.calcularTotalDiarioPorEstado(idBarbero, LocalDate.parse(fecha), estado);
+    }
 
 
 }

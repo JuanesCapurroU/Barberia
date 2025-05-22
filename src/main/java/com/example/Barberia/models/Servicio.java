@@ -15,13 +15,10 @@ public class Servicio {
     private String descripcion;
     private String fotoUrl;
 
-    public String getFotoUrl() {
-        return fotoUrl;
-    }
+    // Campo agregado
+    private Double precio;
 
-    public void setFotoUrl(String fotoUrl) {
-        this.fotoUrl = fotoUrl;
-    }
+    // --- Getters y Setters ---
 
     public Long getIdServicio() {
         return idServicio;
@@ -29,14 +26,6 @@ public class Servicio {
 
     public void setIdServicio(Long idServicio) {
         this.idServicio = idServicio;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 
     public String getNombreServicio() {
@@ -47,16 +36,44 @@ public class Servicio {
         this.nombreServicio = nombreServicio;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    // --- Constructores ---
 
     public Servicio() {
     }
 
-    public Servicio(Long idServicio, String nombreServicio, String descripcion, String fotoUrl) {
+    public Servicio(Long idServicio, String nombreServicio, String descripcion, String fotoUrl, Double precio) {
         this.idServicio = idServicio;
         this.nombreServicio = nombreServicio;
         this.descripcion = descripcion;
         this.fotoUrl = fotoUrl;
+        this.precio = precio;
     }
+
+    // --- toString ---
 
     @Override
     public String toString() {
@@ -64,6 +81,8 @@ public class Servicio {
                 "idServicio=" + idServicio +
                 ", nombreServicio='" + nombreServicio + '\'' +
                 ", descripcion='" + descripcion + '\'' +
+                ", fotoUrl='" + fotoUrl + '\'' +
+                ", precio=" + precio +
                 '}';
     }
 }

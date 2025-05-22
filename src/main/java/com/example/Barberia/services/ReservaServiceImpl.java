@@ -66,6 +66,19 @@ public class ReservaServiceImpl implements ReservaService {
         reservaRepository.deleteById(id);
     }
 
+    @Override
+    public Double calcularTotalDiario(Long idBarbero, LocalDate fecha) {
+        Double total = reservaRepository.sumarPreciosPorBarberoFechaYEstado(idBarbero, fecha, "CONFIRMADA");
+        return total != null ? total : 0.0;
+    }
+
+    @Override
+    public Double calcularTotalDiarioPorEstado(Long idBarbero, LocalDate fecha, String estado) {
+        Double total = reservaRepository.sumarPreciosPorBarberoFechaYEstado(idBarbero, fecha, estado);
+        return total != null ? total : 0.0;
+    }
+
+
 
     @Override
     public List<Reserva> listarReservas() {

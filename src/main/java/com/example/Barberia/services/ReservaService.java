@@ -14,5 +14,8 @@ public interface ReservaService {
     Reserva actualizarEstadoReserva(Long id, String estado);
     List<Reserva> buscarPorBarberoFechaYEstado(Long idBarbero, LocalDate fecha, String estado);
     List<Reserva> buscarPorBarberoYFecha(Long idBarbero, LocalDate fecha);
+    Double calcularTotalDiario(Long idBarbero, LocalDate fecha);
+    Double calcularTotalDiarioPorEstado(Long idBarbero, LocalDate fecha, String estado);
+
 
 }

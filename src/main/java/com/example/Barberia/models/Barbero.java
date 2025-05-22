@@ -12,6 +12,11 @@ public class Barbero {
     @Column(nullable = false)
     private String nombre;
 
+    @ManyToOne
+    @JoinColumn(name = "id_administrador", nullable = false)
+    private Administrador administrador;
+
+
     private String estado; // Ejemplo: Activo o Inactivo
 
     private String correo;
@@ -99,6 +104,17 @@ public class Barbero {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+    public Administrador getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
+    }
+
+    public Long getIdAdministrador() {
+        return administrador != null ? administrador.getId_admin() : null;
     }
 
     @Override

@@ -30,7 +30,19 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     );
     List<Reserva> findByBarbero_IdBarberoAndHorarioDisponible_Fecha(Long idBarbero, LocalDate fecha);
 
+    @Query("SELECT SUM(s.precio) FROM Reserva r JOIN r.servicio s WHERE r.barbero.idBarbero = :idBarbero AND r.horarioDisponible.fecha = :fecha AND r.estado = :estado")
+    Double sumarPreciosPorBarberoFechaYEstado(@Param("idBarbero") Long idBarbero, @Param("fecha") LocalDate fecha, @Param("estado") String estado);
+    ;
+
+    @Query("SELECT r FROM Reserva r WHERE r.barbero.idBarbero = :idBarbero AND r.horarioDisponible.fecha = :fecha AND r.estado = :estado")
+    List<Reserva> findByBarberoAndFechaAndEstado(@Param("idBarbero") Long idBarbero, @Param("fecha") LocalDate fecha, @Param("estado") String estado);
 
 
 
 }
+
+
+
+
+
+
