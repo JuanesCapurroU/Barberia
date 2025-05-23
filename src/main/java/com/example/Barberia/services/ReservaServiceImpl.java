@@ -35,6 +35,9 @@ public class ReservaServiceImpl implements ReservaService {
     private BarberoRepository barberoRepository;
 
 
+
+
+
     @Override
     public Reserva guardarReserva(Reserva reserva) {
         Reserva saved = reservaRepository.save(reserva);
@@ -156,12 +159,6 @@ public class ReservaServiceImpl implements ReservaService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva no encontrada"));
     }
 
-    @Override
-    public Reserva actualizarEstadoReserva(Long id, String estado) {
-        Reserva reserva = obtenerReservaPorId(id);
-        reserva.setEstado(estado);
-        return reservaRepository.save(reserva);
-    }
 
     @Override
     public List<Reserva> buscarPorBarberoFechaYEstado(Long idBarbero, LocalDate fecha, String estado) {
@@ -171,6 +168,23 @@ public class ReservaServiceImpl implements ReservaService {
     @Override
     public List<Reserva> buscarPorBarberoYFecha(Long idBarbero, LocalDate fecha) {
         return reservaRepository.findByBarbero_IdBarberoAndHorarioDisponible_Fecha(idBarbero, fecha);
+    }
+
+    @Override
+    public Reserva actualizarEstadoReserva(Long id, String estado) {
+        Reserva reserva = obtenerReservaPorId(id);
+        reserva.setEstado(estado);
+
+        // Si se cancela, liberar el horario
+        if ("CANCELADA".equalsIgnoreCase(estado)) {
+            HorarioDisponible horario = reserva.getHorarioDisponible();
+            if (horario != null) {
+                horario.setDisponible(true);
+                horarioDisponibleRepository.save(horario);
+            }
+        }
+
+        return reservaRepository.save(reserva);
     }
 }
 

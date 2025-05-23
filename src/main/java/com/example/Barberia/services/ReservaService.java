@@ -1,6 +1,8 @@
 package com.example.Barberia.services;
 
 import com.example.Barberia.models.Reserva;
+import com.example.Barberia.repositories.ReservaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,6 +18,8 @@ public interface ReservaService {
     List<Reserva> buscarPorBarberoYFecha(Long idBarbero, LocalDate fecha);
     Double calcularTotalDiario(Long idBarbero, LocalDate fecha);
     Double calcularTotalDiarioPorEstado(Long idBarbero, LocalDate fecha, String estado);
+
+
 
 
 }
