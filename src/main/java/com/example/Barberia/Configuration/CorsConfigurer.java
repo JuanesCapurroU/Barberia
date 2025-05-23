@@ -13,8 +13,10 @@ public class CorsConfigurer {
             @Override
             public void addCorsMappings(CorsRegistry registry){
                 registry.addMapping("/api/**")
-                        //permitir solicitudes desde el emulador de android
-                        .allowedOrigins("http://10.0.2.2:8080")
+                        .allowedOrigins(
+                                "http://10.0.2.2:8080",     // APP
+                                "http://localhost:3000"     // WEB
+                        )
                         .allowedMethods("GET","POST","PUT","DELETE","OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
@@ -22,3 +24,4 @@ public class CorsConfigurer {
         };
     }
 }
+

@@ -15,7 +15,7 @@ public class Administrador {
     private String usuario;
     private String contraseña;
     private String correo;
-    private String rol;
+    private String rol="ADMIN";
 
     public Administrador() {
     }
