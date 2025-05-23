@@ -13,7 +13,7 @@ public class Barbero {
     private String nombre;
 
     @ManyToOne
-    @JoinColumn(name = "id_administrador", nullable = false)
+    @JoinColumn(name = "id_administrador", nullable = true)
     private Administrador administrador;
 
 

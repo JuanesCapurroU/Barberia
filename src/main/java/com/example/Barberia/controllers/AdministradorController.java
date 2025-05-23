@@ -36,4 +36,11 @@ public class AdministradorController {
     public Administrador obtenerAdministrador(@PathVariable Long id) {
         return administradorService.obtenerAdministradorPorId(id);
     }
+
+    @PutMapping("/{id}")
+    public Administrador actualizarAdministrador(@PathVariable Long id, @RequestBody Administrador admin) {
+        admin.setId_admin(id);
+        return administradorService.guardarAdministrador(admin);
+    }
+
 }
