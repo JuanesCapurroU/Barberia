@@ -50,4 +50,11 @@ public class ServicioController {
         return servicioService.obtenerServicioPorId(id);
     }
 
+    @PutMapping("/{id}")
+    public Servicio actualizarServicio(@PathVariable Long id, @RequestBody Servicio servicio, @RequestParam Long idAdministrador) {
+        validarAdministrador(idAdministrador);
+        servicio.setIdServicio(id);
+        return servicioService.guardarServicio(servicio);
+    }
+
 }

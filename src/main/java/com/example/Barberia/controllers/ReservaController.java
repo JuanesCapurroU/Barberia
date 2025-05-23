@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reservas")
@@ -93,6 +96,29 @@ public class ReservaController {
     ) {
         return reservaService.calcularTotalDiarioPorEstado(idBarbero, LocalDate.parse(fecha), estado);
     }
+
+    @GetMapping("/servicios-mas-vendidos")
+    public List<Map<String, Object>> serviciosMasVendidos(@RequestParam String fecha) {
+        LocalDate localDate = LocalDate.parse(fecha);
+        List<Reserva> reservas = reservaService.listarReservas();
+        Map<String, Long> conteo = reservas.stream()
+                .filter(r -> r.getHorarioDisponible().getFecha().equals(localDate))
+                .collect(Collectors.groupingBy(
+                        r -> r.getServicio().getNombreServicio(),
+                        Collectors.counting()
+                ));
+
+        return conteo.entrySet().stream()
+                .sorted((a, b) -> Long.compare(b.getValue(), a.getValue()))
+                .map(e -> {
+                    Map<String, Object> m = new HashMap<>();
+                    m.put("nombreServicio", e.getKey());
+                    m.put("cantidad", e.getValue());
+                    return m;
+                })
+                .collect(Collectors.toList());
+    }
+
 
 
 
