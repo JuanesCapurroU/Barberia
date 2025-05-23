@@ -19,11 +19,11 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(mensaje, true, "UTF-8");
             helper.setTo(destinatario);
             helper.setSubject(asunto);
-            helper.setText(cuerpoHtml, true); // true = es HTML
-            helper.setFrom("tu_cuenta@gmail.com"); // Cambia por tu correo real
+            helper.setText(cuerpoHtml, true);
+            helper.setFrom("tu_cuenta@gmail.com");
             mailSender.send(mensaje);
         } catch (Exception e) {
-            // Puedes loguear el error o manejarlo según tu necesidad
+
             System.err.println("Error enviando correo: " + e.getMessage());
         }
     }

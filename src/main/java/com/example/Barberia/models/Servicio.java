@@ -15,10 +15,9 @@ public class Servicio {
     private String descripcion;
     private String fotoUrl;
 
-    // Campo agregado
+
     private Double precio;
 
-    // --- Getters y Setters ---
 
     public Long getIdServicio() {
         return idServicio;
@@ -60,7 +59,6 @@ public class Servicio {
         this.precio = precio;
     }
 
-    // --- Constructores ---
 
     public Servicio() {
     }
@@ -73,7 +71,6 @@ public class Servicio {
         this.precio = precio;
     }
 
-    // --- toString ---
 
     @Override
     public String toString() {

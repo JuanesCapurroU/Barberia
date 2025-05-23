@@ -175,7 +175,6 @@ public class ReservaServiceImpl implements ReservaService {
         Reserva reserva = obtenerReservaPorId(id);
         reserva.setEstado(estado);
 
-        // Si se cancela, liberar el horario
         if ("CANCELADA".equalsIgnoreCase(estado)) {
             HorarioDisponible horario = reserva.getHorarioDisponible();
             if (horario != null) {

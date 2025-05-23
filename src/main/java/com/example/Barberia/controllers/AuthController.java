@@ -26,7 +26,6 @@ public class AuthController {
 
         Administrador admin = adminRepo.findByUsuario(usuario);
         if (admin != null && admin.getContraseña().equals(password)) {
-            // Puedes generar un token JWT aquí si quieres
             return ResponseEntity.ok(Map.of("success", true, "role", "ADMIN"));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

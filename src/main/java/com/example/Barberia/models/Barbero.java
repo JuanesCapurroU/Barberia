@@ -18,7 +18,7 @@ public class Barbero {
 
 
 
-    private String estado; // Ejemplo: Activo o Inactivo
+    private String estado;
 
     private String correo;
 

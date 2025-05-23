@@ -42,13 +42,10 @@ public class BarberoServiceImpl implements BarberoService {
     @Override
     @Transactional
     public void eliminarBarbero(Long idBarbero) {
-        // 1) Elimina todas las reservas de los horarios de este barbero
         reservaRepository.deleteByHorarioBarberoIdBarbero(idBarbero);
 
-        // 2) Elimina todos los horarios asociadas a este barbero
         horarioRepository.deleteByBarbero_IdBarbero(idBarbero);
 
-        // 3) Finalmente elimina el barbero
         if (!barberoRepository.existsById(idBarbero)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Barbero no encontrado");
         }

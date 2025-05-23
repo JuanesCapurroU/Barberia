@@ -28,18 +28,17 @@ public class BarberoController {
 
     @PostMapping
     public Barbero guardarBarbero(@RequestBody Barbero barbero, @RequestParam Long idAdministrador) {
-        // Busca el administrador por su ID
         Administrador admin = administradorRepository.findById(idAdministrador)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Administrador no encontrado"));
 
-        // Asigna el administrador al barbero
+
         barbero.setAdministrador(admin);
 
         System.out.println("Barbero recibido: " + barbero);
 
         Barbero nuevoBarbero = barberoServiceImpl.guardarBarbero(barbero);
 
-        // Crea horarios para los próximos 7 días
+
         for (int i = 0; i < 7; i++) {
             LocalDate fecha = LocalDate.now().plusDays(i);
             horarioDisponibleService.crearHorariosParaDiaYBarbero(nuevoBarbero.getIdBarbero(), fecha);
@@ -55,7 +54,7 @@ public class BarberoController {
             @PathVariable Long id,
             @RequestParam Long idAdministrador
     ) {
-        // opcional: validar rol de administrador
+
         barberoServiceImpl.eliminarBarbero(id);
     }
 

@@ -78,7 +78,7 @@ public class ReservaController {
             return reservaService.buscarPorBarberoYFecha(idBarbero, localDate);
         }
     }
-    // Método 1: Total diario (sin estado)
+
     @GetMapping("/barbero/{idBarbero}/total")
     public Double obtenerTotalDiario(
             @PathVariable Long idBarbero,
@@ -87,7 +87,7 @@ public class ReservaController {
         return reservaService.calcularTotalDiario(idBarbero, LocalDate.parse(fecha));
     }
 
-    // Método 2: Total diario por estado
+
     @GetMapping("/barbero/{idBarbero}/total/por-estado")
     public Double obtenerTotalDiarioPorEstado(
             @PathVariable Long idBarbero,
