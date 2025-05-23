@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AdministradorRepository extends JpaRepository<Administrador, Long> {
-
+    // Método para buscar por usuario (nombre de usuario)
+    Administrador findByUsuario(String usuario);
 }

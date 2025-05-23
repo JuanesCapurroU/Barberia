@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -32,6 +33,9 @@ public class ReservaServiceImpl implements ReservaService {
 
     @Autowired
     private BarberoRepository barberoRepository;
+
+
+
 
 
     @Override
@@ -64,6 +68,19 @@ public class ReservaServiceImpl implements ReservaService {
         }
         reservaRepository.deleteById(id);
     }
+
+    @Override
+    public Double calcularTotalDiario(Long idBarbero, LocalDate fecha) {
+        Double total = reservaRepository.sumarPreciosPorBarberoFechaYEstado(idBarbero, fecha, "CONFIRMADA");
+        return total != null ? total : 0.0;
+    }
+
+    @Override
+    public Double calcularTotalDiarioPorEstado(Long idBarbero, LocalDate fecha, String estado) {
+        Double total = reservaRepository.sumarPreciosPorBarberoFechaYEstado(idBarbero, fecha, estado);
+        return total != null ? total : 0.0;
+    }
+
 
 
     @Override
@@ -136,9 +153,38 @@ public class ReservaServiceImpl implements ReservaService {
         );
     }
 
+    @Override
+    public Reserva obtenerReservaPorId(Long id) {
+        return reservaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva no encontrada"));
+    }
 
 
+    @Override
+    public List<Reserva> buscarPorBarberoFechaYEstado(Long idBarbero, LocalDate fecha, String estado) {
+        return reservaRepository.findByBarbero_IdBarberoAndHorarioDisponible_FechaAndEstado(idBarbero, fecha, estado);
+    }
 
+    @Override
+    public List<Reserva> buscarPorBarberoYFecha(Long idBarbero, LocalDate fecha) {
+        return reservaRepository.findByBarbero_IdBarberoAndHorarioDisponible_Fecha(idBarbero, fecha);
+    }
 
+    @Override
+    public Reserva actualizarEstadoReserva(Long id, String estado) {
+        Reserva reserva = obtenerReservaPorId(id);
+        reserva.setEstado(estado);
+
+        // Si se cancela, liberar el horario
+        if ("CANCELADA".equalsIgnoreCase(estado)) {
+            HorarioDisponible horario = reserva.getHorarioDisponible();
+            if (horario != null) {
+                horario.setDisponible(true);
+                horarioDisponibleRepository.save(horario);
+            }
+        }
+
+        return reservaRepository.save(reserva);
+    }
 }
 

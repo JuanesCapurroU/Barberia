@@ -49,5 +49,11 @@ public class BarberoController {
         return barberoServiceImpl.listarBarberos();
     }
 
+    @PutMapping("/{id}")
+    public Barbero actualizarBarbero(@PathVariable Long id, @RequestBody Barbero barbero) {
+        barbero.setIdBarbero(id);
+        return barberoServiceImpl.guardarBarbero(barbero);
+    }
+
 
 }
