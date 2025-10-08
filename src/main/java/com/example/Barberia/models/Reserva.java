@@ -22,7 +22,7 @@
         private HorarioDisponible horarioDisponible;
 
         @ManyToOne
-        @JoinColumn(name = "id_cliente", nullable = false)
+        @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente", nullable = false)
         private Cliente cliente;
 
         private String nombreCliente;
