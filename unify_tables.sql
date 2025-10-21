@@ -26,3 +26,4 @@
  6. Verificar la estructura final
  \d clientes
  \d reserva
+

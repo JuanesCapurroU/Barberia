@@ -152,3 +152,4 @@ El frontend ahora puede usar este endpoint sin problemas y las reservas funciona
 ---
 
 **¡El endpoint está listo y funcionando!** 🎯
+

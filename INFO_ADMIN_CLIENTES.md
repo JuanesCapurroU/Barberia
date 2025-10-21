@@ -111,3 +111,4 @@ POST http://localhost:8080/api/clientes?idAdministrador=1
 ---
 
 **¡El administrador está listo y los endpoints están disponibles!** 🎉
+
