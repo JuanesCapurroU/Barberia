@@ -51,4 +51,9 @@ public class BarberoServiceImpl implements BarberoService {
         }
         barberoRepository.deleteById(idBarbero);
     }
+
+    @Override
+    public Barbero obtenerBarberoPorId(Long id) {
+        return barberoRepository.findById(id).orElse(null);
+    }
 }

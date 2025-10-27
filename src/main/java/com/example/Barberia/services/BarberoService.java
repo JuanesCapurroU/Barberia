@@ -9,4 +9,5 @@ public interface BarberoService {
     Barbero guardarBarbero(Barbero barbero);
     void eliminarBarbero(Long id);
     List<Barbero> listarBarberos();
+    Barbero obtenerBarberoPorId(Long id);
 }
