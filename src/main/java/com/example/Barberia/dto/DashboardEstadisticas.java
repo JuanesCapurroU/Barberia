@@ -15,6 +15,12 @@ public class DashboardEstadisticas {
     private Double porcentajeComisionBarbero;
     private List<EstadisticasBarbero> estadisticasPorBarbero;
     private List<ReservaPorMes> reservasPorMes;
+    
+    // Estadísticas segmentadas por modalidad
+    private Long reservasPresenciales;
+    private Long reservasDomicilio;
+    private Double ingresosPresenciales;
+    private Double ingresosDomicilio;
 
     // Constructores
     public DashboardEstadisticas() {
@@ -126,6 +132,38 @@ public class DashboardEstadisticas {
 
     public void setReservasPorMes(List<ReservaPorMes> reservasPorMes) {
         this.reservasPorMes = reservasPorMes;
+    }
+
+    public Long getReservasPresenciales() {
+        return reservasPresenciales;
+    }
+
+    public void setReservasPresenciales(Long reservasPresenciales) {
+        this.reservasPresenciales = reservasPresenciales;
+    }
+
+    public Long getReservasDomicilio() {
+        return reservasDomicilio;
+    }
+
+    public void setReservasDomicilio(Long reservasDomicilio) {
+        this.reservasDomicilio = reservasDomicilio;
+    }
+
+    public Double getIngresosPresenciales() {
+        return ingresosPresenciales;
+    }
+
+    public void setIngresosPresenciales(Double ingresosPresenciales) {
+        this.ingresosPresenciales = ingresosPresenciales;
+    }
+
+    public Double getIngresosDomicilio() {
+        return ingresosDomicilio;
+    }
+
+    public void setIngresosDomicilio(Double ingresosDomicilio) {
+        this.ingresosDomicilio = ingresosDomicilio;
     }
 }
 

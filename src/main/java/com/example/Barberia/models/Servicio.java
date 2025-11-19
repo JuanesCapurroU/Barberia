@@ -15,8 +15,11 @@ public class Servicio {
     private String descripcion;
     private String fotoUrl;
 
-
     private Double precio;
+
+    // Precio adicional por servicio a domicilio (null si no aplica)
+    @Column(name = "precio_adicional_domicilio")
+    private Double precioAdicionalDomicilio;
 
 
     public Long getIdServicio() {
@@ -59,16 +62,24 @@ public class Servicio {
         this.precio = precio;
     }
 
+    public Double getPrecioAdicionalDomicilio() {
+        return precioAdicionalDomicilio;
+    }
+
+    public void setPrecioAdicionalDomicilio(Double precioAdicionalDomicilio) {
+        this.precioAdicionalDomicilio = precioAdicionalDomicilio;
+    }
 
     public Servicio() {
     }
 
-    public Servicio(Long idServicio, String nombreServicio, String descripcion, String fotoUrl, Double precio) {
+    public Servicio(Long idServicio, String nombreServicio, String descripcion, String fotoUrl, Double precio, Double precioAdicionalDomicilio) {
         this.idServicio = idServicio;
         this.nombreServicio = nombreServicio;
         this.descripcion = descripcion;
         this.fotoUrl = fotoUrl;
         this.precio = precio;
+        this.precioAdicionalDomicilio = precioAdicionalDomicilio;
     }
 
 
@@ -80,6 +91,7 @@ public class Servicio {
                 ", descripcion='" + descripcion + '\'' +
                 ", fotoUrl='" + fotoUrl + '\'' +
                 ", precio=" + precio +
+                ", precioAdicionalDomicilio=" + precioAdicionalDomicilio +
                 '}';
     }
 }

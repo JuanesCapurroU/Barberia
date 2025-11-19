@@ -8,6 +8,12 @@ public class EstadisticasBarbero {
     private Double ingresosGenerados;
     private Double comisionBarbero;
     private Double comisionAdmin;
+    
+    // Estadísticas segmentadas por modalidad
+    private Long cortesPresenciales;
+    private Long cortesDomicilio;
+    private Double ingresosPresenciales;
+    private Double ingresosDomicilio;
 
     // Constructores
     public EstadisticasBarbero() {
@@ -70,6 +76,38 @@ public class EstadisticasBarbero {
 
     public void setComisionAdmin(Double comisionAdmin) {
         this.comisionAdmin = comisionAdmin;
+    }
+
+    public Long getCortesPresenciales() {
+        return cortesPresenciales;
+    }
+
+    public void setCortesPresenciales(Long cortesPresenciales) {
+        this.cortesPresenciales = cortesPresenciales;
+    }
+
+    public Long getCortesDomicilio() {
+        return cortesDomicilio;
+    }
+
+    public void setCortesDomicilio(Long cortesDomicilio) {
+        this.cortesDomicilio = cortesDomicilio;
+    }
+
+    public Double getIngresosPresenciales() {
+        return ingresosPresenciales;
+    }
+
+    public void setIngresosPresenciales(Double ingresosPresenciales) {
+        this.ingresosPresenciales = ingresosPresenciales;
+    }
+
+    public Double getIngresosDomicilio() {
+        return ingresosDomicilio;
+    }
+
+    public void setIngresosDomicilio(Double ingresosDomicilio) {
+        this.ingresosDomicilio = ingresosDomicilio;
     }
 }
 

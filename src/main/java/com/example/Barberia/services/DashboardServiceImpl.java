@@ -62,7 +62,13 @@ public class DashboardServiceImpl implements DashboardService {
         // Obtener reservas por mes
         List<ReservaPorMes> reservasPorMes = obtenerReservasPorMes(reservas);
 
-        return new DashboardEstadisticas(
+        // Calcular estadísticas segmentadas por modalidad
+        Long reservasPresenciales = reservas.stream().filter(r -> !r.isEsADomicilio()).count();
+        Long reservasDomicilio = reservas.stream().filter(Reserva::isEsADomicilio).count();
+        Double ingresosPresenciales = calcularIngresosPorModalidad(reservas, false);
+        Double ingresosDomicilio = calcularIngresosPorModalidad(reservas, true);
+
+        DashboardEstadisticas estadisticas = new DashboardEstadisticas(
                 totalReservas,
                 totalBarberos,
                 totalClientes,
@@ -75,6 +81,14 @@ public class DashboardServiceImpl implements DashboardService {
                 estadisticasBarberos,
                 reservasPorMes
         );
+
+        // Agregar estadísticas segmentadas
+        estadisticas.setReservasPresenciales(reservasPresenciales);
+        estadisticas.setReservasDomicilio(reservasDomicilio);
+        estadisticas.setIngresosPresenciales(ingresosPresenciales);
+        estadisticas.setIngresosDomicilio(ingresosDomicilio);
+
+        return estadisticas;
     }
 
     @Override
@@ -93,14 +107,26 @@ public class DashboardServiceImpl implements DashboardService {
             Double comisionBarbero = (ingresosGenerados * porcentajeBarbero) / 100.0;
             Double comisionAdmin = (ingresosGenerados * porcentajeAdmin) / 100.0;
 
-            estadisticas.add(new EstadisticasBarbero(
+            // Estadísticas segmentadas
+            Long cortesPresenciales = reservasBarbero.stream().filter(r -> !r.isEsADomicilio()).count();
+            Long cortesDomicilio = reservasBarbero.stream().filter(Reserva::isEsADomicilio).count();
+            Double ingresosPresenciales = calcularIngresosPorModalidad(reservasBarbero, false);
+            Double ingresosDomicilio = calcularIngresosPorModalidad(reservasBarbero, true);
+
+            EstadisticasBarbero est = new EstadisticasBarbero(
                     barbero.getIdBarbero(),
                     barbero.getNombre(),
                     totalCortes,
                     ingresosGenerados,
                     comisionBarbero,
                     comisionAdmin
-            ));
+            );
+            est.setCortesPresenciales(cortesPresenciales);
+            est.setCortesDomicilio(cortesDomicilio);
+            est.setIngresosPresenciales(ingresosPresenciales);
+            est.setIngresosDomicilio(ingresosDomicilio);
+
+            estadisticas.add(est);
         }
 
         return estadisticas;
@@ -123,7 +149,13 @@ public class DashboardServiceImpl implements DashboardService {
         Double comisionBarbero = (ingresosGenerados * porcentajeBarbero) / 100.0;
         Double comisionAdmin = (ingresosGenerados * porcentajeAdmin) / 100.0;
 
-        return new EstadisticasBarbero(
+        // Estadísticas segmentadas
+        Long cortesPresenciales = reservasBarbero.stream().filter(r -> !r.isEsADomicilio()).count();
+        Long cortesDomicilio = reservasBarbero.stream().filter(Reserva::isEsADomicilio).count();
+        Double ingresosPresenciales = calcularIngresosPorModalidad(reservasBarbero, false);
+        Double ingresosDomicilio = calcularIngresosPorModalidad(reservasBarbero, true);
+
+        EstadisticasBarbero est = new EstadisticasBarbero(
                 barbero.getIdBarbero(),
                 barbero.getNombre(),
                 totalCortes,
@@ -131,6 +163,12 @@ public class DashboardServiceImpl implements DashboardService {
                 comisionBarbero,
                 comisionAdmin
         );
+        est.setCortesPresenciales(cortesPresenciales);
+        est.setCortesDomicilio(cortesDomicilio);
+        est.setIngresosPresenciales(ingresosPresenciales);
+        est.setIngresosDomicilio(ingresosDomicilio);
+
+        return est;
     }
 
     private Double calcularIngresosTotales(List<Reserva> reservas) {
@@ -140,6 +178,28 @@ public class DashboardServiceImpl implements DashboardService {
             Servicio servicio = servicioRepository.findById(servicioId).orElse(null);
             if (servicio != null && servicio.getPrecio() != null) {
                 total += servicio.getPrecio();
+                // Agregar precio adicional si es a domicilio
+                if (reserva.isEsADomicilio() && servicio.getPrecioAdicionalDomicilio() != null) {
+                    total += servicio.getPrecioAdicionalDomicilio();
+                }
+            }
+        }
+        return total;
+    }
+
+    private Double calcularIngresosPorModalidad(List<Reserva> reservas, boolean esADomicilio) {
+        double total = 0.0;
+        for (Reserva reserva : reservas) {
+            if (reserva.isEsADomicilio() == esADomicilio) {
+                Long servicioId = reserva.getServicio().getIdServicio();
+                Servicio servicio = servicioRepository.findById(servicioId).orElse(null);
+                if (servicio != null && servicio.getPrecio() != null) {
+                    total += servicio.getPrecio();
+                    // Agregar precio adicional si es a domicilio
+                    if (esADomicilio && servicio.getPrecioAdicionalDomicilio() != null) {
+                        total += servicio.getPrecioAdicionalDomicilio();
+                    }
+                }
             }
         }
         return total;
@@ -162,7 +222,12 @@ public class DashboardServiceImpl implements DashboardService {
                     Long servicioId = reserva.getServicio().getIdServicio();
                     Servicio servicio = servicioRepository.findById(servicioId).orElse(null);
                     if (servicio != null && servicio.getPrecio() != null) {
-                        reservaMes.setIngresos(reservaMes.getIngresos() + servicio.getPrecio());
+                        double ingreso = servicio.getPrecio();
+                        // Agregar precio adicional si es a domicilio
+                        if (reserva.isEsADomicilio() && servicio.getPrecioAdicionalDomicilio() != null) {
+                            ingreso += servicio.getPrecioAdicionalDomicilio();
+                        }
+                        reservaMes.setIngresos(reservaMes.getIngresos() + ingreso);
                     }
 
                     reservasPorMes.put(mes, reservaMes);

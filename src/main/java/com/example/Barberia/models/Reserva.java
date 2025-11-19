@@ -29,26 +29,31 @@
 
         private String celularCliente;
 
-        private String correoCliente;
+    private String correoCliente;
 
-        private String estado;
+    private String estado;
+
+    // Indica si el servicio es a domicilio
+    @Column(name = "es_a_domicilio", nullable = false)
+    private boolean esADomicilio = false;
 
 
 
         public Reserva() {
         }
 
-        public Reserva(Long idReserva, Servicio servicio, Barbero barbero, HorarioDisponible horarioDisponible, Cliente cliente, String nombreCliente, String celularCliente, String correoCliente, String estado) {
-            this.idReserva = idReserva;
-            this.servicio = servicio;
-            this.barbero = barbero;
-            this.horarioDisponible = horarioDisponible;
-            this.cliente = cliente;
-            this.nombreCliente = nombreCliente;
-            this.celularCliente = celularCliente;
-            this.correoCliente = correoCliente;
-            this.estado = estado;
-        }
+    public Reserva(Long idReserva, Servicio servicio, Barbero barbero, HorarioDisponible horarioDisponible, Cliente cliente, String nombreCliente, String celularCliente, String correoCliente, String estado, boolean esADomicilio) {
+        this.idReserva = idReserva;
+        this.servicio = servicio;
+        this.barbero = barbero;
+        this.horarioDisponible = horarioDisponible;
+        this.cliente = cliente;
+        this.nombreCliente = nombreCliente;
+        this.celularCliente = celularCliente;
+        this.correoCliente = correoCliente;
+        this.estado = estado;
+        this.esADomicilio = esADomicilio;
+    }
 
         public String getEstado() {
             return estado;
@@ -118,22 +123,32 @@
             return correoCliente;
         }
 
-        public void setCorreoCliente(String correoCliente) {
-            this.correoCliente = correoCliente;
-        }
+    public void setCorreoCliente(String correoCliente) {
+        this.correoCliente = correoCliente;
+    }
 
-        @Override
-        public String toString() {
-            return "Reserva{" +
-                    "idReserva=" + idReserva +
-                    ", servicio=" + servicio +
-                    ", barbero=" + barbero +
-                    ", horarioDisponible=" + horarioDisponible +
-                    ", cliente=" + cliente +
-                    ", nombreCliente='" + nombreCliente + '\'' +
-                    ", celularCliente='" + celularCliente + '\'' +
-                    ", correoCliente='" + correoCliente + '\'' +
-                    '}';
-        }
+    public boolean isEsADomicilio() {
+        return esADomicilio;
+    }
+
+    public void setEsADomicilio(boolean esADomicilio) {
+        this.esADomicilio = esADomicilio;
+    }
+
+    @Override
+    public String toString() {
+        return "Reserva{" +
+                "idReserva=" + idReserva +
+                ", servicio=" + servicio +
+                ", barbero=" + barbero +
+                ", horarioDisponible=" + horarioDisponible +
+                ", cliente=" + cliente +
+                ", nombreCliente='" + nombreCliente + '\'' +
+                ", celularCliente='" + celularCliente + '\'' +
+                ", correoCliente='" + correoCliente + '\'' +
+                ", estado='" + estado + '\'' +
+                ", esADomicilio=" + esADomicilio +
+                '}';
+    }
     }
 

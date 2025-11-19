@@ -11,5 +11,6 @@ public interface HorarioDisponibleService {
     List<HorarioDisponible> obtenerPorBarberoId(Long idBarbero);
     List<HorarioDisponible> obtenerPorBarberoYFecha(Long idBarbero, LocalDate fecha);
     void crearHorariosParaDiaYBarbero(Long idBarbero, LocalDate fecha);
+    void generarHorariosFuturosParaTodosLosBarberos();
 
 }

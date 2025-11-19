@@ -23,16 +23,22 @@ public class HorarioDisponible {
 
     private boolean disponible;
 
+    // Modalidad del servicio: PRESENCIAL, DOMICILIO o AMBOS
+    @Enumerated(EnumType.STRING)
+    @Column(name = "modalidad_servicio", nullable = false)
+    private ModalidadServicio modalidadServicio = ModalidadServicio.PRESENCIAL;
+
     public HorarioDisponible() {
     }
 
-    public HorarioDisponible(Long idHorario, LocalDate fecha, Barbero barbero, LocalTime horaInicio, LocalTime horaFin, boolean disponible) {
+    public HorarioDisponible(Long idHorario, LocalDate fecha, Barbero barbero, LocalTime horaInicio, LocalTime horaFin, boolean disponible, ModalidadServicio modalidadServicio) {
         this.idHorario = idHorario;
         this.fecha = fecha;
         this.barbero = barbero;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.disponible = disponible;
+        this.modalidadServicio = modalidadServicio != null ? modalidadServicio : ModalidadServicio.PRESENCIAL;
     }
 
     public Long getIdHorario() {
@@ -83,6 +89,14 @@ public class HorarioDisponible {
         this.disponible = disponible;
     }
 
+    public ModalidadServicio getModalidadServicio() {
+        return modalidadServicio;
+    }
+
+    public void setModalidadServicio(ModalidadServicio modalidadServicio) {
+        this.modalidadServicio = modalidadServicio;
+    }
+
     @Override
     public String toString() {
         return "HorarioDisponible{" +
@@ -92,6 +106,7 @@ public class HorarioDisponible {
                 ", horaInicio=" + horaInicio +
                 ", horaFin=" + horaFin +
                 ", disponible=" + disponible +
+                ", modalidadServicio=" + modalidadServicio +
                 '}';
     }
 }

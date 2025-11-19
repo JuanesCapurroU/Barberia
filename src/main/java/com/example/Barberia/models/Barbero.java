@@ -29,6 +29,15 @@ public class Barbero {
 
     private String fotoUrl;
 
+    // Modalidad de trabajo actual: PRESENCIAL o DOMICILIO (no puede ser AMBOS)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "modalidad_actual", nullable = false)
+    private ModalidadServicio modalidadActual = ModalidadServicio.PRESENCIAL;
+
+    // Precio adicional que cobra este barbero por servicio a domicilio
+    @Column(name = "precio_adicional_domicilio")
+    private Double precioAdicionalDomicilio = 10000.0;
+
     public Barbero() {
     }
 
@@ -40,7 +49,7 @@ public class Barbero {
         this.fotoUrl = fotoUrl;
     }
 
-    public Barbero(Long idBarbero, String nombre, String estado, String correo, String telefono, String usuario, String contraseña, String fotoUrl) {
+    public Barbero(Long idBarbero, String nombre, String estado, String correo, String telefono, String usuario, String contraseña, String fotoUrl, ModalidadServicio modalidadActual) {
         this.idBarbero = idBarbero;
         this.nombre = nombre;
         this.estado = estado;
@@ -49,6 +58,7 @@ public class Barbero {
         this.usuario = usuario;
         this.contraseña = contraseña;
         this.fotoUrl = fotoUrl;
+        this.modalidadActual = modalidadActual != null ? modalidadActual : ModalidadServicio.AMBOS;
     }
 
     public String getUsuario() {
@@ -118,6 +128,22 @@ public class Barbero {
         return administrador != null ? administrador.getId_admin() : null;
     }
 
+    public ModalidadServicio getModalidadActual() {
+        return modalidadActual;
+    }
+
+    public void setModalidadActual(ModalidadServicio modalidadActual) {
+        this.modalidadActual = modalidadActual;
+    }
+
+    public Double getPrecioAdicionalDomicilio() {
+        return precioAdicionalDomicilio;
+    }
+
+    public void setPrecioAdicionalDomicilio(Double precioAdicionalDomicilio) {
+        this.precioAdicionalDomicilio = precioAdicionalDomicilio;
+    }
+
     @Override
     public String toString() {
         return "Barbero{" +
@@ -126,6 +152,7 @@ public class Barbero {
                 ", estado='" + estado + '\'' +
                 ", correo='" + correo + '\'' +
                 ", telefono='" + telefono + '\'' +
+                ", modalidadActual=" + modalidadActual +
                 '}';
     }
 }

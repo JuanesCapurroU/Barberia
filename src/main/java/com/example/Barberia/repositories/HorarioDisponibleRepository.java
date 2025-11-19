@@ -30,4 +30,7 @@ public interface HorarioDisponibleRepository extends JpaRepository<HorarioDispon
     @Query("DELETE FROM HorarioDisponible h WHERE h.barbero.idBarbero = :idBarbero")
     void deleteByBarberoId(@Param("idBarbero") Long idBarbero);
 
+    @Query("SELECT MAX(h.fecha) FROM HorarioDisponible h WHERE h.barbero.idBarbero = :idBarbero")
+    LocalDate findMaxFechaByBarberoId(@Param("idBarbero") Long idBarbero);
+
 }
