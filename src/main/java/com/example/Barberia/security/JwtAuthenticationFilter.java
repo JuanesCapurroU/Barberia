@@ -34,20 +34,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
             try {
-                username = jwtUtil.getUsernameFromToken(jwt);
+                // Verificar si el token está expirado
+                if (jwtUtil.isTokenExpired(jwt)) {
+                    logger.warn("JWT token is expired");
+                } else {
+                    // Si no está expirado, obtener el username y validar
+                    username = jwtUtil.getUsernameFromToken(jwt);
+                    if (username != null && jwtUtil.validateToken(jwt, username)) {
+                        // Crear autenticación simple
+                        UsernamePasswordAuthenticationToken authToken = 
+                            new UsernamePasswordAuthenticationToken(username, null, 
+                                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+                        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        SecurityContextHolder.getContext().setAuthentication(authToken);
+                    }
+                }
             } catch (Exception e) {
-                logger.warn("JWT token is expired or invalid");
-            }
-        }
-
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            if (jwtUtil.validateToken(jwt, username)) {
-                // Crear autenticación simple
-                UsernamePasswordAuthenticationToken authToken = 
-                    new UsernamePasswordAuthenticationToken(username, null, 
-                        Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                logger.warn("JWT token is invalid: " + e.getMessage());
+                // No establecer autenticación si el token es inválido
             }
         }
 

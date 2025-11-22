@@ -16,7 +16,7 @@ import java.util.function.Function;
 public class JwtUtil {
 
     private static final String SECRET_KEY = "mySecretKey12345678901234567890123456789012345678901234567890";
-    private static final int TOKEN_VALIDITY = 3600 * 5; // 5 horas
+    private static final int TOKEN_VALIDITY = 3600 * 24; // 24 horas (86400 segundos) - tiempo suficiente para cambiar contraseña
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
@@ -39,9 +39,13 @@ public class JwtUtil {
                 .getBody();
     }
 
-    private Boolean isTokenExpired(String token) {
-        final Date expiration = getExpirationDateFromToken(token);
-        return expiration.before(new Date());
+    public Boolean isTokenExpired(String token) {
+        try {
+            final Date expiration = getExpirationDateFromToken(token);
+            return expiration.before(new Date());
+        } catch (Exception e) {
+            return true; // Si hay error al obtener la fecha, considerar el token como expirado
+        }
     }
 
     public String generateToken(String username, String role) {

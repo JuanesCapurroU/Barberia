@@ -1,8 +1,10 @@
 package com.example.Barberia.controllers;
 
 import com.example.Barberia.models.Cliente;
+import com.example.Barberia.models.Cupon;
 import com.example.Barberia.services.ClienteService;
 import com.example.Barberia.services.AdministradorService;
+import com.example.Barberia.services.CuponService;
 import com.example.Barberia.models.Administrador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,12 @@ public class ClienteController {
 
     @Autowired
     private AdministradorService administradorService;
+    
+    @Autowired
+    private com.example.Barberia.utils.JwtUtil jwtUtil;
+
+    @Autowired
+    private CuponService cuponService;
 
     private void validarAdministrador(Long idAdministrador) {
         Administrador admin = administradorService.obtenerAdministradorPorId(idAdministrador);
@@ -105,5 +113,118 @@ public class ClienteController {
     public void eliminarCliente(@PathVariable Long id, @RequestParam Long idAdministrador) {
         validarAdministrador(idAdministrador);
         clienteService.eliminarCliente(id);
+    }
+    
+    @PutMapping("/perfil")
+    public ResponseEntity<?> actualizarPerfil(
+            Authentication authentication,
+            @RequestBody Map<String, String> datosPerfil
+    ) {
+        try {
+            if (authentication == null || authentication.getName() == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of("success", false, "message", "No autenticado. Por favor, inicia sesión nuevamente"));
+            }
+            
+            String correo = authentication.getName();
+            String nombre = datosPerfil.get("nombre");
+            String celular = datosPerfil.get("celular");
+            String direccion = datosPerfil.get("direccion");
+            
+            Cliente clienteActualizado = clienteService.actualizarPerfil(correo, nombre, celular, direccion);
+            
+            return ResponseEntity.ok(Map.of(
+                "success", true,
+                "message", "Perfil actualizado exitosamente",
+                "cliente", Map.of(
+                    "id", clienteActualizado.getId_cliente(),
+                    "nombre", clienteActualizado.getNombre(),
+                    "celular", clienteActualizado.getCelular(),
+                    "correo", clienteActualizado.getCorreo(),
+                    "direccion", clienteActualizado.getDireccion() != null ? clienteActualizado.getDireccion() : ""
+                )
+            ));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("success", false, "message", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("success", false, "message", "Error interno del servidor"));
+        }
+    }
+    
+    @PutMapping("/cambiar-contraseña")
+    public ResponseEntity<?> cambiarContraseña(
+            Authentication authentication,
+            @RequestBody Map<String, String> datosContraseña
+    ) {
+        try {
+            if (authentication == null || authentication.getName() == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of("success", false, "message", "No autenticado. Por favor, inicia sesión nuevamente"));
+            }
+            
+            String correo = authentication.getName();
+            String contraseñaActual = datosContraseña.get("contraseñaActual");
+            String nuevaContraseña = datosContraseña.get("nuevaContraseña");
+            
+            if (contraseñaActual == null || nuevaContraseña == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("success", false, "message", "Faltan datos requeridos"));
+            }
+            
+            if (nuevaContraseña.length() < 6) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("success", false, "message", "La nueva contraseña debe tener al menos 6 caracteres"));
+            }
+            
+            boolean cambiado = clienteService.cambiarContraseña(correo, contraseñaActual, nuevaContraseña);
+            
+            if (cambiado) {
+                return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Contraseña cambiada exitosamente"
+                ));
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("success", false, "message", "No se pudo cambiar la contraseña"));
+            }
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("success", false, "message", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("success", false, "message", "Error interno del servidor"));
+        }
+    }
+
+    @GetMapping("/cupones/validar")
+    public ResponseEntity<?> validarCupon(@RequestParam String codigo) {
+        try {
+            Optional<Cupon> cuponOpt = cuponService.validarCupon(codigo);
+            
+            if (cuponOpt.isPresent()) {
+                Cupon cupon = cuponOpt.get();
+                return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "valido", true,
+                    "cupon", Map.of(
+                        "codigo", cupon.getCodigo(),
+                        "porcentajeDescuento", cupon.getPorcentajeDescuento(),
+                        "fechaValidez", cupon.getFechaValidez().toString()
+                    ),
+                    "message", "Cupón válido"
+                ));
+            } else {
+                return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "valido", false,
+                    "message", "Cupón inválido o expirado"
+                ));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("success", false, "message", "Error al validar cupón: " + e.getMessage()));
+        }
     }
 }

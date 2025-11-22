@@ -12,4 +12,7 @@ public interface ClienteService {
     boolean validarCredenciales(String correo, String contraseña);
     void eliminarCliente(Long id);
     List<Cliente> listarClientes();
+    boolean recuperarContraseña(String correo);
+    Cliente actualizarPerfil(String correo, String nombre, String celular, String direccion);
+    boolean cambiarContraseña(String correo, String contraseñaActual, String nuevaContraseña);
 }

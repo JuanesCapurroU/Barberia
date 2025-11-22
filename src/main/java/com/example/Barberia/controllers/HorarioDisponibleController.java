@@ -87,16 +87,5 @@ public class HorarioDisponibleController {
                 ))
                 .collect(Collectors.toList());
     }
-
-    /**
-     * Endpoint para generar horarios futuros manualmente para todos los barberos.
-     * Útil para ejecutar inmediatamente sin esperar al scheduler diario.
-     */
-    @PostMapping("/generar-futuros")
-    public String generarHorariosFuturos(@RequestParam Long idAdministrador) {
-        validarAdministrador(idAdministrador);
-        horarioDisponibleService.generarHorariosFuturosParaTodosLosBarberos();
-        return "Horarios futuros generados exitosamente para todos los barberos.";
-    }
 }
 

@@ -167,5 +167,36 @@ public class AuthController {
                     .body(Map.of("valid", false, "message", "Token inválido"));
         }
     }
+    
+    @PostMapping("/cliente/recuperar-contraseña")
+    public ResponseEntity<?> recuperarContraseña(@RequestBody Map<String, String> request) {
+        try {
+            String correo = request.get("correo");
+            
+            if (correo == null || correo.trim().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("success", false, "message", "El correo es requerido"));
+            }
+            
+            boolean enviado = clienteService.recuperarContraseña(correo);
+            
+            if (enviado) {
+                return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Se ha enviado una nueva contraseña a tu correo electrónico"
+                ));
+            } else {
+                // Por seguridad, no revelamos si el correo existe o no
+                return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Si el correo existe, se ha enviado una nueva contraseña"
+                ));
+            }
+            
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("success", false, "message", "Error interno del servidor"));
+        }
+    }
 }
 
