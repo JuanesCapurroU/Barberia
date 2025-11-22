@@ -1,7 +1,10 @@
 package com.example.Barberia.models;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "cupones")
@@ -48,8 +51,35 @@ public class Cupon {
         this.porcentajeDescuento = porcentajeDescuento;
     }
     
+    @JsonGetter("fechaValidez")
+    public String getFechaValidezAsString() {
+        if (fechaValidez != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            return fechaValidez.format(formatter);
+        }
+        return null;
+    }
+    
     public LocalDate getFechaValidez() {
         return fechaValidez;
+    }
+    
+    @JsonSetter("fechaValidez")
+    public void setFechaValidezFromString(String fechaValidezStr) {
+        if (fechaValidezStr != null && !fechaValidezStr.isEmpty()) {
+            try {
+                // Intentar parsear en formato DD/MM/YYYY
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                this.fechaValidez = LocalDate.parse(fechaValidezStr, formatter);
+            } catch (Exception e) {
+                try {
+                    // Si falla, intentar formato ISO
+                    this.fechaValidez = LocalDate.parse(fechaValidezStr);
+                } catch (Exception e2) {
+                    throw new RuntimeException("Formato de fecha inválido: " + fechaValidezStr);
+                }
+            }
+        }
     }
     
     public void setFechaValidez(LocalDate fechaValidez) {
